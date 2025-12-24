@@ -33,14 +33,20 @@ watch(
       <div v-for="list in lists" :key="list.id" class="flex gap-x-1.5">
         <input
           type="checkbox"
-          :name="list.name"
-          :value="list.name"
           :id="list.id.toString()"
           v-model="list.isDone"
+          :disabled="list.isDone"
+          :class="[
+            list.isDone ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
+          ]"
         />
         <label
           :for="list.id.toString()"
-          :class="[list.isDone === true ? 'line-through text-red-600' : '']"
+          :class="[
+            list.isDone
+              ? 'pointer-events-none text-gray-400 line-through'
+              : 'cursor-pointer',
+          ]"
         >
           {{ list.name }}
         </label>
