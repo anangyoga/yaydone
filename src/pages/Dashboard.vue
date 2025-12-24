@@ -6,8 +6,8 @@ interface Lists {
   name: string;
   isDone: boolean;
 }
-const data: Lists[] = getChecklist();
-const lists = ref(data);
+
+const lists = ref<Lists[]>(getChecklist());
 const today = new Date().toLocaleDateString("en-GB", {
   day: "2-digit",
   month: "short",
