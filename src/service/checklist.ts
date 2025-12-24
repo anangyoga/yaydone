@@ -48,6 +48,20 @@ export const getChecklist = (): Lists[] => {
   }
 };
 
+export const addChecklist = (name: string): Lists[] => {
+  const allChecklists = getChecklist();
+
+  const newChecklist: Lists = {
+    id: Date.now(),
+    name,
+    isDone: false,
+  };
+
+  const checklists = [...allChecklists, newChecklist];
+  saveLists(checklists);
+  return checklists;
+};
+
 export const saveLists = (lists: Lists[]) => {
   localStorage.setItem(STORAGE_KEY_CHECKLIST, JSON.stringify(lists));
 };
