@@ -27,23 +27,27 @@ watch(
 <template>
   <div class="p-6">
     <h1 class="text-2xl font-bold mb-4">Today Checklist: {{ today }}</h1>
+    <div v-if="lists.length">
+      <p class="text-gray-600">Checklist harian kamu hari ini 👇</p>
 
-    <p class="text-gray-600">Checklist harian kamu hari ini 👇</p>
-
-    <div v-for="list in lists" :key="list.id" class="flex gap-x-1.5">
-      <input
-        type="checkbox"
-        :name="list.name"
-        :value="list.name"
-        :id="list.id.toString()"
-        v-model="list.isDone"
-      />
-      <label
-        :for="list.id.toString()"
-        :class="[list.isDone === true ? 'line-through text-red-600' : '']"
-      >
-        {{ list.name }}
-      </label>
+      <div v-for="list in lists" :key="list.id" class="flex gap-x-1.5">
+        <input
+          type="checkbox"
+          :name="list.name"
+          :value="list.name"
+          :id="list.id.toString()"
+          v-model="list.isDone"
+        />
+        <label
+          :for="list.id.toString()"
+          :class="[list.isDone === true ? 'line-through text-red-600' : '']"
+        >
+          {{ list.name }}
+        </label>
+      </div>
+    </div>
+    <div v-else>
+      <p class="text-gray-600 mb-4">Belum ada checklists untuk hari ini.</p>
     </div>
   </div>
 </template>
