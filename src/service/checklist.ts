@@ -13,7 +13,7 @@ export const getChecklist = (): Lists[] => {
   try {
     const checklistOnStorage = localStorage.getItem(STORAGE_KEY_CHECKLIST);
     const dateOnStorage = localStorage.getItem(STORAGE_KEY_DATE);
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toLocaleDateString("en-CA");
 
     if (checklistOnStorage === null) {
       localStorage.setItem(
