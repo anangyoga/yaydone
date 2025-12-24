@@ -13,19 +13,37 @@ const defaultChecklist: Lists[] = [
   { id: 5, name: "Night Vitamins", isDone: false },
 ];
 
-const STORAGE_KEY = "daily-checklist";
+const STORAGE_KEY_CHECKLIST = "daily-checklist";
+const STORAGE_KEY_DATE = "today-checklist";
 
 export const getChecklist = () => {
-  const data = localStorage.getItem(STORAGE_KEY);
+  const dataOnStorage = localStorage.getItem(STORAGE_KEY_CHECKLIST);
+  const dateOnStorage = localStorage.getItem(STORAGE_KEY_DATE);
+  const today = new Date().toISOString().split("T")[0];
 
-  if (!data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultChecklist));
+  if (!dataOnStorage) {
+    localStorage.setItem(
+      STORAGE_KEY_CHECKLIST,
+      JSON.stringify(defaultChecklist)
+    );
+    localStorage.setItem(STORAGE_KEY_DATE, today);
     return defaultChecklist;
   }
 
-  return JSON.parse(data) as Lists[];
+  if (dateOnStorage !== today) {
+    const updatedIsDone = defaultChecklist.map((item) => ({
+      ...item,
+      isDone: false,
+    }));
+    localStorage.setItem(STORAGE_KEY_CHECKLIST, JSON.stringify(updatedIsDone));
+    localStorage.setItem(STORAGE_KEY_DATE, today);
+
+    return updatedIsDone;
+  }
+
+  return JSON.parse(dataOnStorage) as Lists[];
 };
 
 export const saveLists = (lists: Lists[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+  localStorage.setItem(STORAGE_KEY_CHECKLIST, JSON.stringify(lists));
 };

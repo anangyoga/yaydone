@@ -8,11 +8,16 @@ interface Lists {
 }
 const data: Lists[] = getChecklist();
 const lists = ref(data);
+const today = new Date().toLocaleDateString("en-GB", {
+  day: "2-digit",
+  month: "short",
+  year: "2-digit",
+});
 
 watch(
   lists,
-  (newList) => {
-    saveLists(newList);
+  (newLists) => {
+    saveLists(newLists);
   },
   {
     deep: true,
@@ -21,7 +26,7 @@ watch(
 </script>
 <template>
   <div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">Today Checklist</h1>
+    <h1 class="text-2xl font-bold mb-4">Today Checklist: {{ today }}</h1>
 
     <p class="text-gray-600">Checklist harian kamu hari ini 👇</p>
 
